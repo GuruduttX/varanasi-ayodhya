@@ -96,8 +96,8 @@ export default function HeroSection() {
         .hero-bg { animation: zoomBg 8s ease forwards; will-change: transform; }
         @media (max-width: 768px) {
           .hero-bg { animation: none; transform: scale(1); }
-          .hero-section { height: 75svh !important; min-height: 500px !important; }
-          .hero-ctas { margin-bottom: 32px !important; }
+          .hero-section { height: 82svh !important; min-height: 600px !important; }
+          .hero-ctas { margin-bottom: 24px !important; }
         }
         .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; alignItems: center; justifyContent: center; }
         .sel-bare {
@@ -135,6 +135,14 @@ export default function HeroSection() {
         @media (max-width: 480px) {
           .hero-stats { gap: 14px; }
           .hero-progress { display: none; }
+          .hero-pills-container {
+            display: grid !important;
+            grid-template-columns: repeat(2, auto);
+            justify-content: center;
+            gap: 10px 12px !important;
+            margin-bottom: 30px !important;
+          }
+          .dest-pill { padding: 6px 14px !important; font-size: 11.5px !important; }
         }
       `}</style>
 
@@ -173,7 +181,7 @@ export default function HeroSection() {
         <div className="hero-content-pad" style={{ position:"absolute", inset:0, zIndex:10, display:"flex", flexDirection:"column", justifyContent:"space-between", alignItems:"center" }}>
 
           {/* Destination pill switcher — top */}
-          <div style={{ display:"flex", gap:10, flexWrap:"wrap", justifyContent:"center" }}>
+          <div className="hero-pills-container" style={{ display:"flex", gap:10, flexWrap:"wrap", justifyContent:"center" }}>
             {slides.map((slide, i) => (
               <button key={i} className={`dest-pill ${i===cur ? "active":""}`} onClick={() => pick(i)}>
                 {slide.dest}
@@ -188,8 +196,8 @@ export default function HeroSection() {
             {anim && (
               <h1 className="h-slide-enter-d1" style={{
                 fontFamily:"var(--font-heading)", fontWeight:700, color:"#fff",
-                fontSize:"clamp(35px, 4.5vw, 60px)", lineHeight:1.2,
-                marginBottom:20, whiteSpace:"pre-line",
+                fontSize:"clamp(35px, 4.5vw, 60px)", lineHeight:1.25,
+                marginBottom:24, whiteSpace:"pre-line",
                 textShadow:"0 2px 20px rgba(0,0,0,0.4)",
               }}>
                 {s.h1}

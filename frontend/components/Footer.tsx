@@ -1,5 +1,7 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import logo from "@/assets/Experience_my_India.webp";
 
 const Footer = () => {
   return (
@@ -7,9 +9,15 @@ const Footer = () => {
       <div className="container mx-auto">
         <div className="grid md:grid-cols-4 gap-8 md:gap-10">
           <div className="space-y-3">
-            <h3 className="font-heading text-xl font-bold text-white">
-              <span className="text-primary">ॐ</span> Ayodhya Varanasi Tourism
-            </h3>
+            <Link href="/" className="block">
+              <Image 
+                src={logo} 
+                alt="Experience My India" 
+                height={36} 
+                width={160}
+                className="object-contain brightness-0 invert" 
+              />
+            </Link>
             <p className="text-white/50 text-sm leading-relaxed">
               Crafting sacred journeys to India's holiest destinations with devotion, care, and authenticity.
             </p>
@@ -46,7 +54,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-white/10 mt-10 pt-6 text-center">
-          <p className="text-white/30 text-xs">© 2026 Ayodha Varanasi Tourism. All rights reserved.</p>
+          <p className="text-white/30 text-xs">© 2026 Experience My India. All rights reserved.</p>
         </div>
       </div>
     </footer>

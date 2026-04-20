@@ -15,6 +15,7 @@ import heroVaranasi     from "@/assets/hero-varanasi.jpg";
 import ayodhyaTemple    from "@/assets/ayodhya-temple.png";
 import gangaAarti       from "@/assets/ganga-aarti.jpg";
 import diyaPrayer       from "@/assets/diya-prayer.jpg";
+import logo             from "@/assets/Experience_my_India.webp";
 
 /* ── Data ─────────────────────────────────────────────────────── */
 const featuredPackages = [
@@ -334,8 +335,15 @@ export default function Navbar() {
         <div className="container mx-auto px-6 py-3.5 flex items-center justify-between">
 
           {/* Logo */}
-          <Link href="/" className="font-heading text-lg font-bold text-foreground whitespace-nowrap z-10" prefetch={true}>
-            <span className="text-primary">ॐ</span> Ayodhya Varanasi Tourism
+          <Link href="/" className="z-10 block" prefetch={true}>
+            <Image 
+              src={logo} 
+              alt="Experience My India" 
+              height={32} 
+              width={140}
+              className="object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop nav */}
