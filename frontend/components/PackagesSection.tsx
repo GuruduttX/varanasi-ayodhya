@@ -129,16 +129,25 @@ const PackageCard = React.memo(({ p, i, active, onEnquire }: { p: any, i: number
       {/* body */}
       <div className="ps-card-body">
         <h3 className="ps-card-title">{p.title}</h3>
+        
         <div className="ps-card-duration">
           <Clock size={12} />
-          {p.duration}
+          <span>{p.duration}</span>
+          <span style={{ margin: "0 4px", opacity: 0.3 }}>•</span>
+          <MapPin size={12} />
+          <span>India</span>
         </div>
 
-        <div className="ps-card-places">
-          {p.places.map((pl: string) => (
-            <span key={pl} className="ps-card-place-pill">{pl}</span>
+        <div className="ps-card-highlights">
+          {p.highlights.slice(0, 3).map((h: string) => (
+            <div key={h} className="ps-card-highlight-item">
+              <span className="ps-card-highlight-dot" style={{ width: 4, height: 4, borderRadius: "50%", background: "hsl(var(--primary))", marginTop: 7 }} />
+              {h}
+            </div>
           ))}
         </div>
+
+        <div className="ps-card-divider" />
 
         <div className="ps-card-buttons">
           <Link 
@@ -146,14 +155,12 @@ const PackageCard = React.memo(({ p, i, active, onEnquire }: { p: any, i: number
             className="ps-card-btn ps-card-btn-secondary"
           >
             View Details
-            <ArrowRight size={14} />
           </Link>
           <button
             className="ps-card-btn ps-card-btn-primary"
             onClick={onEnquire}
           >
             Enquire Now
-            <ArrowRight size={14} />
           </button>
         </div>
       </div>
@@ -394,9 +401,10 @@ const PackagesSection = () => {
           flex: 1; 
           display: flex; 
           flex-direction: column; 
+          background: #fff;
         }
         @media (max-width: 768px) {
-          .ps-card-body { padding: 16px; }
+          .ps-card-body { padding: 18px; }
         }
         .ps-card-title {
           font-family: var(--font-heading); font-size: 18px; font-weight: 700;
@@ -413,14 +421,11 @@ const PackagesSection = () => {
           font-size: 11px; font-weight: 600; color: #555;
           background: #f3f3f0; border-radius: 6px; padding: 5px 11px;
         }
-        .ps-card-divider { height: 1px; background: #f0eeeb; margin: 12px 0; }
-        .ps-card-highlights { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+        .ps-card-divider { height: 1px; background: #eee; margin: 16px 0 14px; }
+        .ps-card-highlights { display: flex; flex-direction: column; gap: 8px; margin-bottom: 4px; }
         .ps-card-highlight-item {
-          display: flex; align-items: flex-start; gap: 9px;
-          font-size: 13px; color: #555; font-weight: 400; line-height: 1.4;
-        }
-        .ps-card-highlight-dot {
-          flex-shrink: 0; margin-top: 3px;
+          display: flex; align-items: flex-start; gap: 10px;
+          font-size: 13.5px; color: #444; font-weight: 400; line-height: 1.4;
         }
 
         /* buttons row */
@@ -428,26 +433,26 @@ const PackagesSection = () => {
           display: flex; gap: 10px; width: 100%; margin-top: auto;
         }
         .ps-card-btn {
-          flex: 1; padding: 11px 16px; border-radius: 10px; border: 1.5px solid;
+          flex: 1; padding: 10px 12px; border-radius: 8px; border: 1.5px solid;
           cursor: pointer; font-size: 13px; font-weight: 600;
           transition: all 0.25s ease; display: flex; align-items: center;
           justify-content: center; gap: 6px; text-decoration: none;
         }
         .ps-card-btn-primary {
-          background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.85));
+          background: hsl(var(--primary));
           border-color: hsl(var(--primary));
-          color: #fff; box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
+          color: #fff;
         }
         .ps-card-btn-primary:hover {
-          box-shadow: 0 6px 20px hsl(var(--primary) / 0.4);
-          transform: translateY(-2px);
+          background: hsl(var(--primary) / 0.9);
+          transform: translateY(-1px);
         }
         .ps-card-btn-secondary {
-          background: #fff; border-color: #e8e4dc; color: #1a1a1a;
+          background: #fff; border-color: hsl(var(--primary)); color: hsl(var(--primary));
         }
         .ps-card-btn-secondary:hover {
-          background: #f9f7f4; border-color: #d8d0c4;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+          background: hsl(var(--primary) / 0.05);
+          transform: translateY(-1px);
         }
 
         /* ---- nav arrows ---- */
