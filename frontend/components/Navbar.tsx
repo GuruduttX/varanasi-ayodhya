@@ -65,7 +65,8 @@ function MegaShell({ visible, width, children }: { visible: boolean; width: numb
         transition: "opacity 180ms ease, transform 180ms ease",
       }}
     >
-      <div style={{
+      <div
+      style={{
         background: "hsl(var(--background) / 0.98)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
@@ -73,6 +74,7 @@ function MegaShell({ visible, width, children }: { visible: boolean; width: numb
         borderRadius: "16px",
         boxShadow: "0 16px 48px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)",
         overflow: "hidden",
+        fontFamily: "var(--font-roboto)",
       }}>
         {children}
       </div>
@@ -86,10 +88,10 @@ function PackagesMega({ visible }: { visible: boolean }) {
     <MegaShell visible={visible} width={880}>
       {/* Top strip */}
       <div style={{ borderBottom: "1px solid hsl(var(--border))", padding: "14px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "hsl(var(--muted-foreground))" }}>
+        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "hsl(var(--muted-foreground))", fontFamily: "var(--font-roboto)" }}>
           Curated Travel Experiences
         </p>
-        <Link href="/packages" style={{ fontSize: 11, fontWeight: 600, color: "hsl(var(--primary))", display: "flex", alignItems: "center", gap: 4 }}>
+        <Link href="/packages" style={{ fontSize: 11, fontWeight: 600, color: "hsl(var(--primary))", display: "flex", alignItems: "center", gap: 4, fontFamily: "var(--font-roboto)" }}>
           View all packages <ArrowRight size={11} />
         </Link>
       </div>
@@ -124,8 +126,8 @@ function PackagesMega({ visible }: { visible: boolean }) {
                 </div>
 
                 <div style={{ padding: "0 2px" }}>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: "hsl(var(--foreground))", lineHeight: 1.3, marginBottom: 4 }} className="mega-pkg-title">{pkg.title}</p>
-                  <p style={{ fontSize: 11, color: "hsl(var(--muted-foreground))", display: "flex", alignItems: "center", gap: 4, marginBottom: 12 }}>
+                  <p style={{ fontSize: 13, fontWeight: 700, color: "hsl(var(--foreground))", lineHeight: 1.3, marginBottom: 4, fontFamily: "var(--font-roboto)" }} className="mega-pkg-title">{pkg.title}</p>
+                  <p style={{ fontSize: 11, color: "hsl(var(--muted-foreground))", display: "flex", alignItems: "center", gap: 4, marginBottom: 12, fontFamily: "var(--font-roboto)" }}>
                     <Clock size={11} />{pkg.sub}
                   </p>
                   
@@ -149,7 +151,7 @@ function PackagesMega({ visible }: { visible: boolean }) {
 
         {/* Right — duration sidebar */}
         <div style={{ padding: "20px 18px" }}>
-          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "hsl(var(--muted-foreground))", marginBottom: 12 }}>
+          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "hsl(var(--muted-foreground))", marginBottom: 12, fontFamily: "var(--font-roboto)" }}>
             Browse by Duration
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -241,10 +243,10 @@ function BlogMega({ visible }: { visible: boolean }) {
   return (
     <MegaShell visible={visible} width={760}>
       <div style={{ borderBottom: "1px solid hsl(var(--border))", padding: "14px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "hsl(var(--muted-foreground))" }}>
+        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "hsl(var(--muted-foreground))", fontFamily: "var(--font-roboto)" }}>
           Travel Stories &amp; Guides
         </p>
-        <Link href="/blog" style={{ fontSize: 11, fontWeight: 600, color: "hsl(var(--primary))", display: "flex", alignItems: "center", gap: 4 }}>
+        <Link href="/blog" style={{ fontSize: 11, fontWeight: 600, color: "hsl(var(--primary))", display: "flex", alignItems: "center", gap: 4, fontFamily: "var(--font-roboto)" }}>
           All articles <ArrowRight size={11} />
         </Link>
       </div>
@@ -258,25 +260,25 @@ function BlogMega({ visible }: { visible: boolean }) {
               </div>
               <div style={{ minWidth: 0 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                  <span style={{ fontSize: 9, fontWeight: 700, color: "hsl(var(--primary))", textTransform: "uppercase", letterSpacing: "0.08em" }}>{post.cat}</span>
-                  <span style={{ fontSize: 9, color: "hsl(var(--muted-foreground))", display: "flex", alignItems: "center", gap: 3 }}>
+                  <span style={{ fontSize: 9, fontWeight: 700, color: "hsl(var(--primary))", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "var(--font-roboto)" }}>{post.cat}</span>
+                  <span style={{ fontSize: 9, color: "hsl(var(--muted-foreground))", display: "flex", alignItems: "center", gap: 3, fontFamily: "var(--font-roboto)" }}>
                     <BookOpen size={8} />{post.time}
                   </span>
                 </div>
-                <p style={{ fontSize: 13, fontWeight: 600, color: "hsl(var(--foreground))", lineHeight: 1.35 }} className="blog-title">{post.title}</p>
+                <p style={{ fontSize: 13, fontWeight: 600, color: "hsl(var(--foreground))", lineHeight: 1.35, fontFamily: "var(--font-roboto)" }} className="blog-title">{post.title}</p>
               </div>
             </Link>
           ))}
         </div>
 
         <div style={{ padding: "20px 18px" }}>
-          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "hsl(var(--muted-foreground))", marginBottom: 10 }}>
+          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "hsl(var(--muted-foreground))", marginBottom: 10, fontFamily: "var(--font-roboto)" }}>
             Categories
           </p>
           {blogCategories.map((c) => (
             <Link href="/blog" key={c.label} className="blog-cat">
-              <span style={{ fontSize: 12, color: "hsl(var(--foreground))" }}>{c.label}</span>
-              <span style={{ fontSize: 10, color: "hsl(var(--muted-foreground))" }}>{c.count}</span>
+              <span style={{ fontSize: 12, color: "hsl(var(--foreground))", fontFamily: "var(--font-roboto)" }}>{c.label}</span>
+              <span style={{ fontSize: 10, color: "hsl(var(--muted-foreground))", fontFamily: "var(--font-roboto)" }}>{c.count}</span>
             </Link>
           ))}
         </div>
@@ -324,7 +326,7 @@ export default function Navbar() {
   return (
     <>
       <style>{`
-        .nav-trigger { position:relative; display:flex; align-items:center; gap:4px; font-size:13.5px; font-weight:500; padding:7px 12px; border-radius:8px; transition:color 180ms ease; cursor:pointer; background:none; border:none; }
+        .nav-trigger { position:relative; display:flex; align-items:center; gap:4px; font-size:13.5px; font-weight:500; padding:7px 12px; border-radius:8px; transition:color 180ms ease; cursor:pointer; background:none; border:none; font-family:var(--font-roboto); }
         .nav-trigger::after { content:''; position:absolute; bottom:2px; left:12px; right:12px; height:1.5px; background:hsl(var(--primary)); border-radius:99px; transform:scaleX(0); transition:transform 220ms ease; }
         .nav-trigger:hover::after, .nav-trigger.active::after { transform:scaleX(1); }
       `}</style>
@@ -371,6 +373,7 @@ export default function Navbar() {
             <button
               onClick={() => setCustomiseOpen(true)}
               className="text-xs bg-[hsl(var(--primary))] font-semibold text-white px-4 py-2 rounded-lg hover:brightness-110 hover:-translate-y-0.5 transition-all duration-200 shadow-md"
+              style={{ fontFamily: "var(--font-roboto)" }}
             >
               Customize Package
             </button>
@@ -387,12 +390,12 @@ export default function Navbar() {
 
         {/* Mobile drawer */}
         {mobileOpen && (
-          <div className="md:hidden bg-background border-t border-border px-6 pb-6 space-y-1 max-h-[80vh] overflow-y-auto">
+          <div className="md:hidden bg-background border-t border-border px-6 pb-6 space-y-1 max-h-[80vh] overflow-y-auto" style={{ fontFamily: "var(--font-roboto)" }}>
             {navItems.map((item) =>
               item.key ? (
                 <div key={item.label}>
                   <div className="w-full flex items-center justify-between py-3 border-b border-border/50">
-                    <Link href={item.href} onClick={() => setMobileOpen(false)} className="text-sm font-medium text-muted-foreground flex-1">
+                    <Link href={item.href} onClick={() => setMobileOpen(false)} className="text-sm font-medium text-muted-foreground flex-1" style={{ fontFamily: "var(--font-roboto)" }}>
                       {item.label}
                     </Link>
                     <button onClick={() => setMobileExp(mobileExp === item.key ? null : item.key)} className="p-2 -mr-2 text-muted-foreground">
@@ -407,12 +410,12 @@ export default function Navbar() {
                             <Image src={p.image} alt={p.title} fill sizes="44px" style={{ objectFit: "cover" }} />
                           </div>
                           <div>
-                            <p className="text-sm font-semibold text-foreground">{p.title}</p>
-                            <p className="text-xs text-muted-foreground">{p.sub}</p>
+                            <p className="text-sm font-semibold text-foreground" style={{ fontFamily: "var(--font-roboto)" }}>{p.title}</p>
+                            <p className="text-xs text-muted-foreground" style={{ fontFamily: "var(--font-roboto)" }}>{p.sub}</p>
                           </div>
                         </Link>
                       ))}
-                      <Link href="/packages" onClick={() => setMobileOpen(false)} className="block text-primary text-sm font-semibold">View all packages →</Link>
+                      <Link href="/packages" onClick={() => setMobileOpen(false)} className="block text-primary text-sm font-semibold" style={{ fontFamily: "var(--font-roboto)" }}>View all packages →</Link>
                     </div>
                   )}
                   {mobileExp === item.key && item.key === "places" && (
@@ -423,8 +426,8 @@ export default function Navbar() {
                             <Image src={d.image} alt={d.name} fill sizes="44px" style={{ objectFit: "cover" }} />
                           </div>
                           <div>
-                            <p className="text-sm font-semibold text-foreground">{d.name}</p>
-                            <p className="text-xs text-muted-foreground">{d.tagline}</p>
+                            <p className="text-sm font-semibold text-foreground" style={{ fontFamily: "var(--font-roboto)" }}>{d.name}</p>
+                            <p className="text-xs text-muted-foreground" style={{ fontFamily: "var(--font-roboto)" }}>{d.tagline}</p>
                           </div>
                         </Link>
                       ))}
@@ -438,8 +441,8 @@ export default function Navbar() {
                             <Image src={p.image} alt={p.title} fill sizes="44px" style={{ objectFit: "cover" }} />
                           </div>
                           <div>
-                            <p className="text-sm font-semibold text-foreground line-clamp-1">{p.title}</p>
-                            <p className="text-xs text-muted-foreground">{p.time}</p>
+                            <p className="text-sm font-semibold text-foreground" style={{ fontFamily: "var(--font-roboto)" }}>{p.title}</p>
+                            <p className="text-xs text-muted-foreground" style={{ fontFamily: "var(--font-roboto)" }}>{p.cat}</p>
                           </div>
                         </Link>
                       ))}
@@ -453,10 +456,10 @@ export default function Navbar() {
               )
             )}
             <div className="pt-4 space-y-3">
-              <button onClick={() => { setCustomiseOpen(true); setMobileOpen(false); }} className="btn-divine text-xs py-2 px-4 w-full">
+              <button onClick={() => { setCustomiseOpen(true); setMobileOpen(false); }} className="btn-divine text-xs py-2 px-4 w-full" style={{ fontFamily: "var(--font-roboto)" }}>
                 Customize Package
               </button>
-              <a href="tel:+919876543210" className="flex items-center justify-center gap-2 text-sm text-primary font-medium py-2">
+              <a href="tel:+919876543210" className="flex items-center justify-center gap-2 text-sm text-primary font-medium py-2" style={{ fontFamily: "var(--font-roboto)" }}>
                 <Phone size={14} /> +91 98765 43210
               </a>
             </div>

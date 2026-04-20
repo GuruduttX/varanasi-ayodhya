@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Playfair_Display } from "next/font/google";
+import { Geist, Playfair_Display, Roboto } from "next/font/google";
 import "./globals.css";
 import { ModalProvider } from "@/lib/ModalContext";
 import Navbar from "@/components/Navbar";
@@ -8,6 +8,13 @@ import FloatingActions from "@/components/FloatingActions";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  subsets: ["latin"],
+  display: 'swap',
+});
+
+const roboto = Roboto({
+  variable: "--font-roboto",
+  weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
   display: 'swap',
 });
@@ -35,7 +42,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className={`${geistSans.variable} ${playfair.variable} antialiased font-sans bg-background text-foreground`}>
+      <body className={`${geistSans.variable} ${roboto.variable} ${playfair.variable} antialiased font-sans bg-background text-foreground`}>
         <ModalProvider>
           <Navbar />
           {children}

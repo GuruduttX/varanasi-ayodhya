@@ -1,12 +1,9 @@
 "use client";
 import { useState } from "react";
 import { DialogDescription } from "@/components/ui/dialog";
-
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 
 interface CustomisedPackageModalProps {
   open: boolean;
@@ -17,77 +14,101 @@ const CustomisedPackageModal = ({ open, onOpenChange }: CustomisedPackageModalPr
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    destinations: [] as string[],
-    duration: "",
-    message: "",
+    email: "",
+    destination: "",
   });
 
-  const destinations = ["Ayodhya", "Varanasi", "Prayagraj"];
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleDestinationChange = (dest: string, checked: boolean) => {
-    setFormData((prev) => ({
-      ...prev,
-      destinations: checked ? [...prev.destinations, dest] : prev.destinations.filter((d) => d !== dest),
-    }));
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormData({ name: "", phone: "", destinations: [], duration: "", message: "" });
+    setFormData({ name: "", phone: "", email: "", destination: "" });
     onOpenChange(false);
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white border border-border max-w-md max-h-[90vh] overflow-y-auto rounded-xl shadow-lg">
-        <DialogHeader>
-          <DialogTitle className="font-heading text-2xl text-black text-center ">
-           <span className="text-[hsl(var(--primary))]">Customised</span> <span className="text-black">Journey</span>
+      <DialogContent className="w-[92%] sm:max-w-[420px] p-6 md:p-10 border-none bg-white rounded-[32px] md:rounded-[40px] shadow-2xl overflow-hidden">
+        <div className="text-center mb-6 md:mb-10">
+          <DialogTitle className="font-heading text-2xl md:text-4xl text-gray-900 mb-2 md:mb-4 font-bold tracking-tight">
+            Start Your Request
           </DialogTitle>
-          <DialogDescription className="text-center text-gray-500 text-xs">
-            Share your requirements and we will craft a bespoke spiritual experience for you.
+          <DialogDescription className="text-gray-500 text-[13px] md:text-[14px] font-medium leading-relaxed px-2">
+            Tell us what you're dreaming of.
           </DialogDescription>
-        </DialogHeader>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 pt-2">
-          <div className="space-y-2">
-            <Label htmlFor="custom-name" className="text-sm font-medium text-black">Full Name</Label>
-            <Input id="custom-name" name="name" value={formData.name} onChange={handleInputChange} placeholder="Enter your name" className="bg-muted/30 border-border" required />
+        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+          <div className="space-y-1.5">
+            <Label htmlFor="custom-name" className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 ml-1">
+              Full Name
+            </Label>
+            <Input 
+              id="custom-name" 
+              name="name" 
+              value={formData.name} 
+              onChange={handleInputChange} 
+              placeholder="Ram" 
+              className="h-11 md:h-12 bg-gray-50/50 border-gray-100 focus:bg-white focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))]/10 rounded-xl md:rounded-2xl px-4 md:px-5 text-sm placeholder:text-gray-300 transition-all outline-none" 
+              required 
+            />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="custom-phone" className="text-sm font-medium text-black">Phone Number</Label>
-            <Input id="custom-phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} placeholder="+91 XXXXX XXXXX" className="bg-muted/30 border-border" required />
+          <div className="space-y-1.5">
+            <Label htmlFor="custom-phone" className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 ml-1">
+              Phone Number
+            </Label>
+            <Input 
+              id="custom-phone" 
+              name="phone" 
+              type="tel" 
+              value={formData.phone} 
+              onChange={handleInputChange} 
+              placeholder="+91 XXXXX XXXXX" 
+              className="h-11 md:h-12 bg-gray-50/50 border-gray-100 focus:bg-white focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))]/10 rounded-xl md:rounded-2xl px-4 md:px-5 text-sm placeholder:text-gray-300 transition-all outline-none" 
+              required 
+            />
           </div>
 
-          <div className="space-y-2">
-            <Label className="text-sm font-medium text-black">Preferred Destinations</Label>
-            <div className="space-y-2 pl-1">
-              {destinations.map((dest) => (
-                <div key={dest} className="flex items-center gap-3">
-                  <Checkbox id={`custom-${dest}`} checked={formData.destinations.includes(dest)} onCheckedChange={(checked: boolean) => handleDestinationChange(dest, checked === true)} />
-                  <Label htmlFor={`custom-${dest}`} className="font-normal text-black cursor-pointer text-sm">{dest}</Label>
-                </div>
-              ))}
-            </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="custom-email" className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 ml-1">
+              Email Address
+            </Label>
+            <Input 
+              id="custom-email" 
+              name="email" 
+              type="email"
+              value={formData.email} 
+              onChange={handleInputChange} 
+              placeholder="you@example.com" 
+              className="h-11 md:h-12 bg-gray-50/50 border-gray-100 focus:bg-white focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))]/10 rounded-xl md:rounded-2xl px-4 md:px-5 text-sm placeholder:text-gray-300 transition-all outline-none" 
+              required 
+            />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="custom-duration" className="text-sm font-medium text-black">Preferred Duration</Label>
-            <Input id="custom-duration" name="duration" value={formData.duration} onChange={handleInputChange} placeholder="e.g., 5 days / 4 nights" className="bg-muted/30 border-border" required />
+          <div className="space-y-1.5">
+            <Label htmlFor="custom-dest" className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 ml-1">
+              Preferred Destination
+            </Label>
+            <Input 
+              id="custom-dest" 
+              name="destination" 
+              value={formData.destination} 
+              onChange={handleInputChange} 
+              placeholder="e.g. Ayodhya & Varanasi" 
+              className="h-11 md:h-12 bg-gray-50/50 border-gray-100 focus:bg-white focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))]/10 rounded-xl md:rounded-2xl px-4 md:px-5 text-sm placeholder:text-gray-300 transition-all outline-none" 
+              required 
+            />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="custom-message" className="text-sm font-medium text-black">Additional Details</Label>
-            <Textarea id="custom-message" name="message" value={formData.message} onChange={handleInputChange} placeholder="Share your preferences and special requests..." className="bg-muted/30 border-border min-h-24 resize-none" required />
+          <div className="pt-2">
+            <button type="submit" className="w-full bg-[hsl(var(--primary))] text-white font-bold h-12 md:h-14 rounded-xl md:rounded-2xl hover:brightness-105 active:scale-[0.98] transition-all text-sm md:text-base shadow-lg shadow-[hsl(var(--primary))]/20">
+              Submit Request
+            </button>
           </div>
-
-          <button type="submit" className="btn-divine w-full text-center mt-4">Create My Package</button>
         </form>
       </DialogContent>
     </Dialog>

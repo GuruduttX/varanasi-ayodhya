@@ -106,43 +106,22 @@ export default function HeroSection() {
           font-size:14px; color:#111; font-family:inherit;
         }
         .sel-bare option { color:#111; background:#fff; }
-        .dest-pill {
-          padding:5px 12px; border-radius:99px; font-size:11px; font-weight:600;
-          border:1.5px solid rgba(255,255,255,0.25); color:rgba(255,255,255,0.75);
-          background:rgba(255,255,255,0.08); cursor:pointer;
-          transition:all 0.22s ease; white-space:nowrap; letter-spacing:0.02em;
-          transform: translateZ(0);
-        }
-        @media (min-width: 768px) {
-          .dest-pill { backdrop-filter:blur(6px); }
-        }
-        .dest-pill:hover { border-color:rgba(255,255,255,0.5); color:#fff; background:rgba(255,255,255,0.14); }
-        .dest-pill.active { border-color:hsl(var(--primary)); color:#fff; background:hsl(var(--primary)/0.22); }
+
         .progress-bar { height:2px; background:rgba(255,255,255,0.15); border-radius:99px; overflow:hidden; }
         .progress-fill {
           height:100%; background:hsl(var(--primary)); border-radius:99px;
           transition:width 0.4s ease;
         }
         .hero-content-pad { padding: 110px 24px 36px; }
-        .hero-pills { gap: 8px; }
         .hero-stats { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
         .hero-progress { display: flex; align-items: center; gap: 12px; }
         .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px; width: 100%; }
         @media (min-width: 768px) {
           .hero-content-pad { padding: 140px 64px 48px; }
-          .dest-pill { padding: 6px 16px; font-size: 12px; }
         }
         @media (max-width: 480px) {
           .hero-stats { gap: 14px; }
           .hero-progress { display: none; }
-          .hero-pills-container {
-            display: grid !important;
-            grid-template-columns: repeat(2, auto);
-            justify-content: center;
-            gap: 10px 12px !important;
-            margin-bottom: 30px !important;
-          }
-          .dest-pill { padding: 6px 14px !important; font-size: 11.5px !important; }
         }
       `}</style>
 
@@ -180,14 +159,7 @@ export default function HeroSection() {
         {/* Content */}
         <div className="hero-content-pad" style={{ position:"absolute", inset:0, zIndex:10, display:"flex", flexDirection:"column", justifyContent:"space-between", alignItems:"center" }}>
 
-          {/* Destination pill switcher — top */}
-          <div className="hero-pills-container" style={{ display:"flex", gap:10, flexWrap:"wrap", justifyContent:"center" }}>
-            {slides.map((slide, i) => (
-              <button key={i} className={`dest-pill ${i===cur ? "active":""}`} onClick={() => pick(i)}>
-                {slide.dest}
-              </button>
-            ))}
-          </div>
+
 
           {/* Main text block — centered vertically */}
           <div style={{ flex:1, display:"flex", flexDirection:"column", justifyContent:"center", maxWidth:620, textAlign:"center" }} key={`block-${cur}`}>

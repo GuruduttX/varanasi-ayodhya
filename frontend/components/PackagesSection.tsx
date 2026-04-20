@@ -492,13 +492,19 @@ const PackagesSection = () => {
         /* ---- view all link ---- */
         .ps-view-all {
           display: inline-flex; align-items: center; gap: 8px;
-          font-size: 14px; font-weight: 600; color: hsl(var(--primary));
-          text-decoration: none; border-bottom: 2px solid transparent;
-          transition: all 0.2s ease; padding-bottom: 2px;
+          font-size: 14px; font-weight: 600; color: white;
+          text-decoration: none;
+          transition: all 0.3s ease; 
+          padding: 10px 20px;
+          background: hsl(var(--primary));
+          border-radius: 8px;
+          box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+          border: none;
         }
         .ps-view-all:hover { 
-          border-color: hsl(var(--primary));
-          transform: translateX(2px);
+          background: hsl(var(--primary) / 0.9);
+          box-shadow: 0 4px 16px hsl(var(--primary) / 0.4);
+          transform: translateY(-2px);
         }
 
         /* ---- large preview panel ---- */

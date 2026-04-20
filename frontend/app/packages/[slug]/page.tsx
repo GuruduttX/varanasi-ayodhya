@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { 
   MapPin, Clock, Star, Check, X, Calendar, Users, Shield, 
-  ChevronDown, ArrowRight, FileText, Share2, Heart, Image as ImageIcon
+  ChevronDown, ArrowRight, FileText, Share2, Image as ImageIcon
 } from "lucide-react";
 
 import CustomisedPackageModal from "@/components/CustomisedPackageModal";
@@ -98,6 +98,26 @@ export default function PackageTemplate() {
   const [enquireOpen, setEnquireOpen] = useState(false);
   const [customiseOpen, setCustomiseOpen] = useState(false);
 
+  const handleShare = async () => {
+    const shareData = {
+      title: dummyPackage.title,
+      text: dummyPackage.about,
+      url: typeof window !== "undefined" ? window.location.href : "",
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback: copy to clipboard
+        await navigator.clipboard.writeText(`${shareData.title}\n${shareData.url}`);
+        alert("Link copied to clipboard!");
+      }
+    } catch (error) {
+      console.error("Error sharing:", error);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#fafaf8]">
       
@@ -130,11 +150,8 @@ export default function PackageTemplate() {
             </div>
             
             <div className="flex gap-3 shrink-0">
-               <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all text-sm font-semibold text-gray-700 shadow-sm">
+               <button onClick={handleShare} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all text-sm font-semibold text-gray-700 shadow-sm">
                   <Share2 size={16} /> <span className="hidden sm:inline">Share</span>
-               </button>
-               <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all text-sm font-semibold text-gray-700 shadow-sm">
-                  <Heart size={16} /> <span className="hidden sm:inline">Save</span>
                </button>
             </div>
           </div>
@@ -144,31 +161,54 @@ export default function PackageTemplate() {
       {/* ── BENTO PHOTO GALLERY ── */}
       <section className="px-6 pb-12 bg-[#fafaf8]">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-3 h-[40vh] min-h-[350px] md:h-[60vh] md:min-h-[500px] rounded-[32px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.04)] bg-white p-3 border border-gray-100">
-            {/* Main Image */}
-            <div className="col-span-1 md:col-span-2 row-span-2 relative group cursor-pointer overflow-hidden rounded-[20px]">
+          <div className="grid grid-cols-1 md:grid-cols-12 grid-rows-2 gap-4 h-[40vh] min-h-[350px] md:h-[65vh] md:min-h-[550px]">
+            {/* Main Image - Left half */}
+            <div className="col-span-1 md:col-span-7 row-span-2 relative group cursor-pointer overflow-hidden rounded-[24px]">
               <Image src={mainHeroImg} alt="Main View" fill className="object-cover transition-transform duration-700 group-hover:scale-105" priority />
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
+              <div className="absolute bottom-0 left-0 p-8 w-full z-10">
+                 <p className="text-[10px] font-bold text-[hsl(var(--primary))] uppercase tracking-widest mb-3">Experience My India Exclusive</p>
+                 <h3 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 shadow-sm leading-tight">{dummyPackage.title}</h3>
+                 <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-white text-xs font-medium border border-white/20">
+                   Save ₹15000 • VIP Darshan • Premium Stays
+                 </div>
+              </div>
             </div>
-            {/* Sub Image 1 */}
-            <div className="col-span-1 row-span-1 relative group cursor-pointer hidden md:block overflow-hidden rounded-[20px]">
-              <Image src={subImg1} alt="Sub View 1" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
-            </div>
-            {/* Sub Image 2 */}
-            <div className="col-span-1 row-span-1 relative group cursor-pointer hidden md:block overflow-hidden rounded-[20px]">
-              <Image src={subImg2} alt="Sub View 2" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
-            </div>
-            {/* Sub Image 3 */}
-            <div className="col-span-1 row-span-1 relative group cursor-pointer hidden md:block overflow-hidden rounded-[20px]">
-              <Image src={subImg3} alt="Sub View 3" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
-            </div>
-            {/* Sub Image 4 */}
-            <div className="col-span-1 row-span-1 relative group cursor-pointer hidden md:block overflow-hidden rounded-[20px]">
-              <Image src={subImg4} alt="Sub View 4" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
+            
+            {/* Top Right Grid */}
+            <div className="col-span-1 md:col-span-5 row-span-2 grid grid-cols-2 grid-rows-2 gap-4">
+              {/* Sub Image 1 */}
+              <div className="relative group cursor-pointer overflow-hidden rounded-[24px]">
+                <Image src={subImg1} alt="Destinations" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80" />
+                <div className="absolute bottom-5 left-6 z-10">
+                   <p className="text-white font-semibold text-sm tracking-wide">Destinations</p>
+                </div>
+              </div>
+              {/* Sub Image 2 */}
+              <div className="relative group cursor-pointer overflow-hidden rounded-[24px]">
+                <Image src={subImg2} alt="Luxury Stays" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80" />
+                <div className="absolute bottom-5 left-6 z-10">
+                   <p className="text-white font-semibold text-sm tracking-wide">Luxury Stays</p>
+                </div>
+              </div>
+              {/* Sub Image 3 */}
+              <div className="relative group cursor-pointer overflow-hidden rounded-[24px]">
+                <Image src={subImg3} alt="Experiences" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80" />
+                <div className="absolute bottom-5 left-6 z-10">
+                   <p className="text-white font-semibold text-sm tracking-wide">Experiences</p>
+                </div>
+              </div>
+              {/* Sub Image 4 */}
+              <div className="relative group cursor-pointer overflow-hidden rounded-[24px]">
+                <Image src={subImg4} alt="Hidden Gems" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80" />
+                <div className="absolute bottom-5 left-6 z-10">
+                   <p className="text-white font-semibold text-sm tracking-wide">Hidden Gems</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -294,50 +334,71 @@ export default function PackageTemplate() {
 
           {/* RIGHT STICKY SIDEBAR */}
           <div className="w-full lg:w-[35%] relative">
-            <div className="sticky top-28 bg-white rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-gray-100 p-8 overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-2 bg-[hsl(var(--primary))]" />
-              
-              <div className="mb-8">
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.15em] mb-2">Starting From</p>
-                <div className="flex items-baseline gap-2">
-                  <span className="font-heading text-4xl md:text-5xl font-bold text-gray-900">{dummyPackage.price}</span>
-                  <span className="text-gray-500 text-[15px] font-medium">/ person</span>
-                </div>
-              </div>
-              
-              <div className="space-y-5 mb-8 bg-gray-50/50 rounded-2xl p-5 border border-gray-100">
-                <div className="flex items-center gap-3 text-gray-700 font-semibold text-sm">
-                  <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-[hsl(var(--primary))] border border-gray-100"><Shield size={16} /></div>
-                  100% Secure Booking
-                </div>
-                <div className="flex items-center gap-3 text-gray-700 font-semibold text-sm">
-                  <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-[hsl(var(--primary))] border border-gray-100"><Users size={16} /></div>
-                  Dedicated Tour Manager
-                </div>
-                <div className="flex items-center gap-3 text-gray-700 font-semibold text-sm">
-                  <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-[hsl(var(--primary))] border border-gray-100"><FileText size={16} /></div>
-                  Free Cancellation (up to 7 days)
-                </div>
+            <div className="sticky top-28 bg-white rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.06)] border border-gray-100 p-8 md:p-10 overflow-hidden">
+              <div className="text-left mb-8">
+                <h3 className="font-heading text-3xl text-gray-900 mb-2 font-bold tracking-tight">Start Your Request</h3>
+                <p className="text-gray-500 text-sm font-medium">
+                  Provide your details and we'll craft your bespoke journey.
+                </p>
               </div>
 
-              <div className="space-y-3">
-                <button 
-                  onClick={() => setEnquireOpen(true)}
-                  className="w-full bg-[hsl(var(--primary))] text-white font-bold py-4 rounded-xl shadow-[0_8px_25px_rgba(232,123,44,0.3)] hover:shadow-[0_12px_30px_rgba(232,123,44,0.4)] hover:-translate-y-1 transition-all flex items-center justify-center gap-2 uppercase tracking-wide text-xs"
-                >
-                  Enquire Now <ArrowRight size={16} />
+              <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+                <div className="space-y-1.5">
+                  <label htmlFor="pkg-name" className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-500 ml-1">
+                    Full Name
+                  </label>
+                  <input 
+                    id="pkg-name" 
+                    type="text"
+                    placeholder="John Doe" 
+                    className="w-full h-14 bg-gray-50 border border-gray-200 focus:bg-white focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))]/20 rounded-xl px-4 text-base shadow-sm placeholder:text-gray-400 transition-all outline-none" 
+                    required 
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label htmlFor="pkg-phone" className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-500 ml-1">
+                    Phone Number
+                  </label>
+                  <input 
+                    id="pkg-phone" 
+                    type="tel"
+                    placeholder="+91 XXXXX XXXXX" 
+                    className="w-full h-14 bg-gray-50 border border-gray-200 focus:bg-white focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))]/20 rounded-xl px-4 text-base shadow-sm placeholder:text-gray-400 transition-all outline-none" 
+                    required 
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label htmlFor="pkg-email" className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-500 ml-1">
+                    Email Address
+                  </label>
+                  <input 
+                    id="pkg-email" 
+                    type="email"
+                    placeholder="you@example.com" 
+                    className="w-full h-14 bg-gray-50 border border-gray-200 focus:bg-white focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))]/20 rounded-xl px-4 text-base shadow-sm placeholder:text-gray-400 transition-all outline-none" 
+                    required 
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label htmlFor="pkg-dest" className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-500 ml-1">
+                    Preferred Destination
+                  </label>
+                  <input 
+                    id="pkg-dest" 
+                    type="text"
+                    defaultValue={dummyPackage.destination}
+                    className="w-full h-14 bg-gray-50 border border-gray-200 focus:bg-white focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))]/20 rounded-xl px-4 text-base shadow-sm placeholder:text-gray-400 transition-all outline-none" 
+                    required 
+                  />
+                </div>
+
+                <button type="submit" className="w-full bg-[hsl(var(--primary))] text-white font-medium h-14 rounded-xl hover:brightness-105 active:scale-[0.98] transition-all text-base mt-2 shadow-sm">
+                  Submit Request
                 </button>
-                <button 
-                  onClick={() => setCustomiseOpen(true)}
-                  className="w-full bg-white text-[hsl(var(--primary))] border border-gray-200 font-bold py-4 rounded-xl hover:bg-orange-50 hover:border-orange-200 transition-all uppercase tracking-wide text-xs shadow-sm"
-                >
-                  Customize this Package
-                </button>
-              </div>
-              
-              <p className="text-center text-[13px] text-gray-400 mt-6 font-medium">
-                No hidden fees. Taxes may apply.
-              </p>
+              </form>
             </div>
           </div>
           
