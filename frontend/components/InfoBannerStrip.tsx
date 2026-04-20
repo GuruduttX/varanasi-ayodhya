@@ -20,7 +20,7 @@ const banners = [
     id: "services",
     bg: bannerServices,
     eyebrow: "What We Do",
-    headline: "End-to-End\nSacred Journey\nManagement",
+    headline: "End-to-End\nSacred Journeys",
     body: "From your first enquiry to the moment you return home — we handle every detail. VIP temple access, curated rituals, private transportation, handpicked stays, and a dedicated trip concierge available around the clock.",
     accentColor: "#E87B2C",
     accentGlow: "rgba(232,123,44,0.35)",
@@ -44,7 +44,7 @@ const banners = [
     id: "about",
     bg: bannerAbout,
     eyebrow: "Who We Are",
-    headline: "Custodians of\nIndia's Sacred\nJourneys",
+    headline: "Custodians of\nSacred Journeys",
     body: "Born from a deep reverence for India's spiritual heritage, Divine Journeys is more than a travel company — we are storytellers, pilgrims, and guardians of ancient traditions. Every itinerary we craft honours the sanctity of the land it traverses.",
     accentColor: "#3EB489",
     accentGlow: "rgba(62,180,137,0.35)",
@@ -68,7 +68,7 @@ const banners = [
     id: "offer",
     bg: bannerOffer,
     eyebrow: "What We Offer",
-    headline: "Packages Crafted\nfor the Soul,\nNot the Clock",
+    headline: "Packages Crafted\nfor the Soul",
     body: "Choose from intimate private retreats, group pilgrimages, and tailor-made circuits. Every package includes ritual immersion, cultural depth, and premium comfort — without the price tag of excess.",
     accentColor: "#C4762E",
     accentGlow: "rgba(196,118,46,0.35)",
@@ -183,13 +183,13 @@ export default function InfoBannerStrip() {
 
         /* ── cta ── */
         .ib-cta {
-          display: inline-flex; align-items: center; gap: 9px;
-          padding: 13px 26px; border-radius: 10px; border: none;
-          font-size: 13px; font-weight: 700; letter-spacing: 0.03em;
-          cursor: pointer; text-decoration: none; transition: all 0.22s ease;
+          display: inline-flex; align-items: center; gap: 10px;
+          padding: 14px 28px; border-radius: 18px; border: none;
+          font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
+          cursor: pointer; text-decoration: none; transition: all 0.25s ease;
           color: #fff; flex-shrink: 0;
         }
-        .ib-cta:hover { filter: brightness(1.1); transform: translateY(-2px); }
+        .ib-cta:hover { filter: brightness(1.1); box-shadow: 0 10px 32px rgba(0,0,0,0.25) !important; }
 
         /* ── tab strip ── */
         .ib-tab {
@@ -219,10 +219,17 @@ export default function InfoBannerStrip() {
 
         /* responsive */
         @media (max-width: 768px) {
-          .ib-stats-row { flex-wrap: wrap; gap: 20px !important; }
+          .ib-stats-row { flex-wrap: wrap; gap: 0 !important; justify-content: center; width: 100%; border-radius: 12px !important; }
+          .ib-stat { flex: 1 1 33%; min-width: 80px; padding: 14px 8px !important; border-bottom: 1px solid rgba(255,255,255,0.05); }
           .ib-stat-divider { display: none; }
           .ib-tab-title { font-size: 12px; }
-          .ib-chips-row { flex-wrap: wrap; }
+          .ib-chips-row { flex-wrap: wrap; justify-content: center; gap: 6px !important; }
+          .ib-container { padding: 32px 16px 0 !important; }
+          .ib-content-block { text-align: center; margin: 0 auto; align-items: center !important; }
+          .ib-stats-nav { align-items: center !important; width: 100%; gap: 24px !important; }
+          .ib-headline { text-align: center; font-size: 28px !important; line-height: 1.2 !important; }
+          .ib-body { text-align: center; margin-left: auto; margin-right: auto; font-size: 13px !important; margin-bottom: 24px !important; }
+          .ib-cta { width: auto !important; padding: 12px 24px !important; align-self: center !important; border-radius: 16px !important; }
         }
       `}</style>
 
@@ -256,7 +263,7 @@ export default function InfoBannerStrip() {
       <div style={{ position: "absolute", inset: 0, zIndex: 3, background: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E\")", opacity: 0.4 }} />
 
       {/* ── CONTENT ── */}
-      <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto", padding: "80px 48px 0", display: "flex", flexDirection: "column" }}>
+      <div className="ib-container" style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto", padding: "120px 48px 0", display: "flex", flexDirection: "column", minHeight: 650 }}>
 
         {/* ── TOP ROW: main content + nav ── */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr", marginBottom: 56 }}>
@@ -279,15 +286,15 @@ export default function InfoBannerStrip() {
                 }}
               >
                 {/* TEXT BLOCK */}
-                <div style={{ maxWidth: 580 }}>
-                  <div className={isActive ? "ib-enter" : ""} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
+                <div className="ib-content-block" style={{ maxWidth: 580, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                  <div className={isActive ? "ib-enter" : ""} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18, justifyContent: "inherit" }}>
                     <div style={{ width: 32, height: 1.5, background: bn.accentColor, borderRadius: 99, flexShrink: 0 }} />
                     <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: bn.accentColor }}>
                       {bn.eyebrow}
                     </span>
                   </div>
 
-                  <h2 className={isActive ? "ib-enter-d1" : ""} style={{
+                  <h2 className={`${isActive ? "ib-enter-d1" : ""} ib-headline`} style={{
                     fontFamily: "var(--font-heading)", fontWeight: 700, color: "#fff",
                     fontSize: "clamp(34px, 4.2vw, 58px)", lineHeight: 1.12,
                     marginBottom: 24, whiteSpace: "pre-line",
@@ -296,7 +303,7 @@ export default function InfoBannerStrip() {
                     {bn.headline}
                   </h2>
 
-                  <p className={isActive ? "ib-enter-d2" : ""} style={{
+                  <p className={`${isActive ? "ib-enter-d2" : ""} ib-body`} style={{
                     color: "rgba(255,255,255,0.68)", fontSize: "clamp(13px, 1.3vw, 15px)",
                     lineHeight: 1.78, fontWeight: 300, marginBottom: 32, maxWidth: 500,
                   }}>
@@ -327,7 +334,7 @@ export default function InfoBannerStrip() {
                 </div>
 
                 {/* STATS + NAV */}
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 32 }}>
+                <div className="ib-stats-nav" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 32 }}>
                   <div style={{ display: "flex", gap: 10 }}>
                     <button className="ib-arrow" onClick={prev} aria-label="Previous">
                       <ChevronLeft size={18} />

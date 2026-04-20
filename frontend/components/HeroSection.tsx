@@ -96,7 +96,10 @@ export default function HeroSection() {
         .hero-bg { animation: zoomBg 8s ease forwards; will-change: transform; }
         @media (max-width: 768px) {
           .hero-bg { animation: none; transform: scale(1); }
+          .hero-section { height: 75svh !important; min-height: 500px !important; }
+          .hero-ctas { margin-bottom: 32px !important; }
         }
+        .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; alignItems: center; justifyContent: center; }
         .sel-bare {
           background:transparent; border:none; outline:none;
           width:100%; cursor:pointer; appearance:none;
@@ -136,7 +139,7 @@ export default function HeroSection() {
       `}</style>
 
       {/* ── HERO ── */}
-      <section style={{ position:"relative", width:"100%", height:"100svh", minHeight:600, overflow:"hidden" }}>
+      <section className="hero-section" style={{ position:"relative", width:"100%", height:"85svh", minHeight:580, overflow:"hidden" }}>
 
         {/* Background images */}
         {slides.map((slide, i) => (
@@ -205,7 +208,7 @@ export default function HeroSection() {
 
             {/* CTAs */}
             {anim && (
-              <div className="h-slide-enter-d3" style={{ display:"flex", gap:10, flexWrap:"wrap", alignItems:"center", justifyContent:"center" }}>
+              <div className="h-slide-enter-d3 hero-ctas" style={{ display:"flex", gap:10, flexWrap:"wrap", alignItems:"center", justifyContent:"center" }}>
                 <button
                   onClick={openEnquiry}
                   style={{

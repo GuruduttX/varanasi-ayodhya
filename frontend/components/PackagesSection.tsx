@@ -140,22 +140,6 @@ const PackageCard = React.memo(({ p, i, active, onEnquire }: { p: any, i: number
           ))}
         </div>
 
-        <div className="ps-card-divider" />
-
-        <div className="ps-card-highlights">
-          {p.highlights.map((h: string) => (
-            <div key={h} className="ps-card-highlight-item">
-              <div
-                className="ps-card-highlight-dot"
-                style={{ color: p.accent }}
-              >
-                <Star size={10} fill="currentColor" />
-              </div>
-              <span>{h}</span>
-            </div>
-          ))}
-        </div>
-
         <div className="ps-card-buttons">
           <Link 
             href="/packages/divine-ayodhya-kashi-pilgrimage"
@@ -352,6 +336,7 @@ const PackagesSection = () => {
           transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
           border: 1px solid rgba(0,0,0,0.02);
           snap-align: start;
+          display: flex; flex-direction: column;
         }
         .ps-card.active {
           box-shadow: 0 20px 64px rgba(0,0,0,0.12), 0 6px 20px rgba(0,0,0,0.06);
@@ -404,24 +389,32 @@ const PackagesSection = () => {
         }
 
         /* ---- card body ---- */
-        .ps-card-body { padding: 24px; }
+        .ps-card-body { 
+          padding: 20px; 
+          flex: 1; 
+          display: flex; 
+          flex-direction: column; 
+        }
+        @media (max-width: 768px) {
+          .ps-card-body { padding: 16px; }
+        }
         .ps-card-title {
           font-family: var(--font-heading); font-size: 18px; font-weight: 700;
-          color: #1a1a1a; margin-bottom: 8px; line-height: 1.3;
+          color: #1a1a1a; margin-bottom: 6px; line-height: 1.3;
         }
         .ps-card-duration {
           display: flex; align-items: center; gap: 6px;
-          font-size: 13px; color: #666; font-weight: 500; margin-bottom: 16px;
+          font-size: 13px; color: #666; font-weight: 500; margin-bottom: 12px;
         }
         .ps-card-places {
-          display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px;
+          display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px;
         }
         .ps-card-place-pill {
           font-size: 11px; font-weight: 600; color: #555;
           background: #f3f3f0; border-radius: 6px; padding: 5px 11px;
         }
-        .ps-card-divider { height: 1px; background: #f0eeeb; margin: 16px 0; }
-        .ps-card-highlights { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .ps-card-divider { height: 1px; background: #f0eeeb; margin: 12px 0; }
+        .ps-card-highlights { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
         .ps-card-highlight-item {
           display: flex; align-items: flex-start; gap: 9px;
           font-size: 13px; color: #555; font-weight: 400; line-height: 1.4;
@@ -432,7 +425,7 @@ const PackagesSection = () => {
 
         /* buttons row */
         .ps-card-buttons {
-          display: flex; gap: 10px; width: 100%;
+          display: flex; gap: 10px; width: 100%; margin-top: auto;
         }
         .ps-card-btn {
           flex: 1; padding: 11px 16px; border-radius: 10px; border: 1.5px solid;
@@ -554,7 +547,7 @@ const PackagesSection = () => {
               Curated Journeys
             </div>
             <h2 className="ps-title">
-              Handpicked<br />Spiritual Escapes
+              Handpicked Packages
             </h2>
             <p className="ps-subtitle">
               Every itinerary is crafted by local experts who know these sacred lands intimately — so you travel with confidence and depth.
