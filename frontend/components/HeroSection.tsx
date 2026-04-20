@@ -123,13 +123,13 @@ export default function HeroSection() {
           height:100%; background:hsl(var(--primary)); border-radius:99px;
           transition:width 0.4s ease;
         }
-        .hero-content-pad { padding: 80px 24px 36px; }
+        .hero-content-pad { padding: 110px 24px 36px; }
         .hero-pills { gap: 8px; }
         .hero-stats { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
         .hero-progress { display: flex; align-items: center; gap: 12px; }
         .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px; width: 100%; }
         @media (min-width: 768px) {
-          .hero-content-pad { padding: 110px 64px 48px; }
+          .hero-content-pad { padding: 140px 64px 48px; }
           .dest-pill { padding: 6px 16px; font-size: 12px; }
         }
         @media (max-width: 480px) {

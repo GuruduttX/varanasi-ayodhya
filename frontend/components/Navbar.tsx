@@ -332,15 +332,15 @@ export default function Navbar() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "bg-background/97 backdrop-blur-md border-b border-border shadow-sm" : "bg-background/80 backdrop-blur-[6px]"
       }`}>
-        <div className="container mx-auto px-6 py-3.5 flex items-center justify-between">
+        <div className="container mx-auto px-6 py-2 flex items-center justify-between">
 
           {/* Logo */}
           <Link href="/" className="z-10 block" prefetch={true}>
             <Image 
               src={logo} 
               alt="Experience My India" 
-              height={32} 
-              width={140}
+              height={28} 
+              width={125}
               className="object-contain"
               priority
             />
@@ -370,12 +370,12 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3 z-10">
             <button
               onClick={() => setCustomiseOpen(true)}
-              className="text-sm bg-[hsl(var(--primary))] font-semibold text-white px-5 py-2.5 rounded-lg hover:brightness-110 hover:-translate-y-0.5 transition-all duration-200 shadow-md"
+              className="text-xs bg-[hsl(var(--primary))] font-semibold text-white px-4 py-2 rounded-lg hover:brightness-110 hover:-translate-y-0.5 transition-all duration-200 shadow-md"
             >
               Customize Package
             </button>
-            <a href="tel:+919876543210" className="w-9 h-9 rounded-lg bg-[hsl(var(--primary))] flex items-center justify-center hover:brightness-110 transition-colors shadow-sm" aria-label="Call us">
-              <Phone size={16} className="text-white" />
+            <a href="tel:+919876543210" className="w-8 h-8 rounded-lg bg-[hsl(var(--primary))] flex items-center justify-center hover:brightness-110 transition-colors shadow-sm" aria-label="Call us">
+              <Phone size={14} className="text-white" />
             </a>
           </div>
 
