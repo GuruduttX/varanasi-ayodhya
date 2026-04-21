@@ -60,9 +60,9 @@ function MegaShell({ visible, width, children }: { visible: boolean; width: numb
         width,
         zIndex: 100,
         opacity: visible ? 1 : 0,
-        transform: visible ? "translateX(-50%) translateY(0)" : "translateX(-50%) translateY(-8px)",
+        transform: visible ? "translateX(-50%) translateY(0) scale(1)" : "translateX(-50%) translateY(-12px) scale(0.95)",
         pointerEvents: visible ? "auto" : "none",
-        transition: "opacity 180ms ease, transform 180ms ease",
+        transition: "opacity 250ms cubic-bezier(0.23, 1, 0.32, 1), transform 250ms cubic-bezier(0.23, 1, 0.32, 1)",
       }}
     >
       <div
@@ -72,7 +72,7 @@ function MegaShell({ visible, width, children }: { visible: boolean; width: numb
         WebkitBackdropFilter: "blur(12px)",
         border: "1px solid hsl(var(--border))",
         borderRadius: "16px",
-        boxShadow: "0 16px 48px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)",
+        boxShadow: "0 20px 64px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.4)",
         overflow: "hidden",
         fontFamily: "var(--font-roboto)",
       }}>
@@ -134,13 +134,15 @@ function PackagesMega({ visible }: { visible: boolean }) {
                   <div style={{ display: "flex", gap: 6 }}>
                     <Link href="/packages/divine-ayodhya-kashi-pilgrimage" style={{ 
                       flex: 1, textAlign: "center", fontSize: 10, fontWeight: 700, 
-                      padding: "7px 0", borderRadius: 6, border: "1px solid hsl(var(--border))",
-                      color: "hsl(var(--foreground))", background: "#fff", transition: "all 0.2s"
+                      padding: "8px 0", borderRadius: 7, border: "1.5px solid hsl(var(--border))",
+                      color: "hsl(var(--foreground))", background: "#fff", transition: "all 280ms cubic-bezier(0.23, 1, 0.32, 1)",
+                      position: "relative", overflow: "hidden"
                     }} className="mega-btn-sec">Details</Link>
                     <button style={{ 
                       flex: 1, fontSize: 10, fontWeight: 700, 
-                      padding: "7px 0", borderRadius: 6, 
-                      color: "#fff", background: "hsl(var(--primary))", transition: "all 0.2s"
+                      padding: "8px 0", borderRadius: 7, 
+                      color: "#fff", background: "hsl(var(--primary))", transition: "all 280ms cubic-bezier(0.23, 1, 0.32, 1)",
+                      position: "relative", overflow: "hidden", boxShadow: "0 2px 8px hsl(var(--primary) / 0.2)"
                     }} className="mega-btn-pri">Enquire</button>
                   </div>
                 </div>
@@ -178,13 +180,90 @@ function PackagesMega({ visible }: { visible: boolean }) {
       </div>
 
       <style>{`
-        .mega-pkg-card { display:block; border-radius:10px; transition:all 200ms ease; }
-        .mega-pkg-card:hover .mega-img { transform:scale(1.08); }
-        .mega-pkg-card:hover .mega-pkg-title { color:hsl(var(--primary)); }
-        .mega-btn-sec:hover { background:hsl(var(--accent)) !important; border-color:hsl(var(--primary)) !important; color:hsl(var(--primary)) !important; }
-        .mega-btn-pri:hover { brightness:1.1; transform:translateY(-1px); box-shadow:0 4px 12px hsl(var(--primary)/0.2); }
-        .mega-side-link { display:flex; align-items:center; justify-content:space-between; padding:8px 10px; border-radius:8px; transition:background 180ms ease; }
-        .mega-side-link:hover { background:hsl(var(--accent)); }
+        .mega-pkg-card { 
+          display: block; border-radius: 10px; 
+          transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+          border: 1px solid transparent;
+        }
+
+        .mega-pkg-card:hover {
+          box-shadow: 0 12px 32px hsl(var(--primary) / 0.15);
+          border-color: hsl(var(--primary) / 0.2);
+        }
+
+        .mega-pkg-card:hover .mega-img { 
+          transform: scale(1.1) rotate(1deg);
+        }
+
+        .mega-pkg-card:hover .mega-pkg-title { 
+          color: hsl(var(--primary)); 
+        }
+
+        .mega-btn-sec { 
+          position: relative;
+          transition: all 280ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .mega-btn-sec::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: hsl(var(--primary) / 0.08);
+          border-radius: 7px;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 280ms cubic-bezier(0.23, 1, 0.32, 1);
+          pointer-events: none;
+        }
+
+        .mega-btn-sec:hover::before {
+          transform: scaleX(1);
+        }
+
+        .mega-btn-sec:hover { 
+          background: hsl(var(--accent)) !important; 
+          border-color: hsl(var(--primary)) !important; 
+          color: hsl(var(--primary)) !important;
+          transform: translateY(-1px);
+        }
+
+        .mega-btn-pri { 
+          position: relative;
+          transition: all 280ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .mega-btn-pri::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+          border-radius: 7px;
+          opacity: 0;
+          transition: opacity 250ms ease;
+        }
+
+        .mega-btn-pri:hover { 
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px hsl(var(--primary) / 0.3) !important;
+        }
+
+        .mega-btn-pri:hover::after {
+          opacity: 1;
+        }
+
+        .mega-side-link { 
+          display: flex; align-items: center; justify-content: space-between; 
+          padding: 10px 10px; border-radius: 8px; 
+          transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1);
+          border-left: 3px solid transparent;
+          position: relative;
+        }
+
+        .mega-side-link:hover { 
+          background: hsl(var(--primary) / 0.08);
+          border-left-color: hsl(var(--primary));
+          transform: translateX(2px);
+        }
       `}</style>
     </MegaShell>
   );
@@ -326,15 +405,266 @@ export default function Navbar() {
   return (
     <>
       <style>{`
-        .nav-trigger { position:relative; display:flex; align-items:center; gap:4px; font-size:13.5px; font-weight:500; padding:7px 12px; border-radius:8px; transition:color 180ms ease; cursor:pointer; background:none; border:none; font-family:var(--font-roboto); }
-        .nav-trigger::after { content:''; position:absolute; bottom:2px; left:12px; right:12px; height:1.5px; background:hsl(var(--primary)); border-radius:99px; transform:scaleX(0); transition:transform 220ms ease; }
-        .nav-trigger:hover::after, .nav-trigger.active::after { transform:scaleX(1); }
+        /* Premium Nav Links */
+        .nav-trigger { 
+          position: relative; display: flex; align-items: center; gap: 4px; 
+          font-size: 13.5px; font-weight: 500; padding: 8px 14px; border-radius: 8px; 
+          transition: all 200ms cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; 
+          background: none; border: none; font-family: var(--font-roboto); 
+          color: #374151;
+        }
+        
+        /* Animated underline */
+        .nav-trigger::after { 
+          content: ''; position: absolute; bottom: 2px; left: 14px; right: 14px; 
+          height: 2px; background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary) / 0.6));
+          border-radius: 99px; transform: scaleX(0); transform-origin: center;
+          transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+          box-shadow: 0 0 8px hsl(var(--primary) / 0.3);
+        }
+        
+        /* Background pill effect on hover */
+        .nav-trigger::before {
+          content: ''; position: absolute; inset: 0; border-radius: 8px;
+          background: linear-gradient(135deg, hsl(var(--primary) / 0.08), hsl(var(--primary) / 0.02));
+          opacity: 0; transform: scale(0.95);
+          transition: opacity 200ms ease, transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+          z-index: -1;
+        }
+        
+        .nav-trigger:hover::before {
+          opacity: 1; transform: scale(1);
+        }
+        
+        .nav-trigger:hover::after, 
+        .nav-trigger.active::after { 
+          transform: scaleX(1);
+        }
+        
+        .nav-trigger:hover { 
+          color: hsl(var(--primary)); 
+          letter-spacing: 0.3px;
+        }
+        
+        .nav-trigger:active {
+          transform: translateY(1px);
+        }
+
+        /* Button Hover Effects */
+        .premium-btn {
+          position: relative; overflow: hidden;
+          transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .premium-btn::before {
+          content: ''; position: absolute; inset: 0;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+          opacity: 0; transform: translateX(-100%);
+          transition: transform 400ms ease, opacity 250ms ease;
+        }
+
+        .premium-btn:hover::before {
+          opacity: 1; transform: translateX(100%);
+        }
+
+        .premium-btn:hover {
+          box-shadow: 0 8px 24px hsl(var(--primary) / 0.25), 
+                      0 0 1px hsl(var(--primary) / 0.5);
+          transform: translateY(-2px);
+        }
+
+        .premium-btn:active {
+          transform: translateY(0);
+          box-shadow: 0 4px 12px hsl(var(--primary) / 0.15);
+        }
+
+        /* Icon animation */
+        .premium-btn svg {
+          transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .premium-btn:hover svg {
+          transform: rotate(-10deg) translateX(2px);
+        }
+
+        /* Call button special effect */
+        .call-btn {
+          position: relative;
+          transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .call-btn::after {
+          content: ''; position: absolute; inset: 0; border-radius: 8px;
+          background: radial-gradient(circle, hsl(var(--primary) / 0.3), transparent);
+          opacity: 0; animation: pulse-ring 0.6s ease-out forwards;
+        }
+
+        .call-btn:hover::after {
+          animation: pulse-ring 0.6s ease-out;
+        }
+
+        @keyframes pulse-ring {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1.5);
+            opacity: 0;
+          }
+        }
+
+        /* Mega menu animations */
+        @keyframes menuSlideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-12px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        @keyframes menuSlideUp {
+          from {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+          to {
+            opacity: 0;
+            transform: translateY(-12px) scale(0.95);
+          }
+        }
+
+        .mega-pkg-card {
+          transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+          border: 1px solid transparent;
+        }
+
+        .mega-pkg-card:hover {
+          border-color: hsl(var(--primary) / 0.2);
+          box-shadow: 0 12px 32px hsl(var(--primary) / 0.12);
+          transform: translateY(-4px);
+        }
+
+        .mega-pkg-card:hover .mega-img { 
+          transform: scale(1.08) rotate(0.5deg);
+        }
+
+        .mega-pkg-card:hover .mega-pkg-title { 
+          color: hsl(var(--primary));
+        }
+
+        .places-card {
+          transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+          border: 1px solid transparent;
+        }
+
+        .places-card:hover {
+          border-color: hsl(var(--primary) / 0.2);
+          box-shadow: 0 12px 32px hsl(var(--primary) / 0.12);
+          transform: translateY(-4px);
+        }
+
+        .places-card:hover .places-img { 
+          transform: scale(1.08) rotate(-0.3deg);
+        }
+
+        .places-card:hover .places-explore { 
+          gap: 8px;
+          color: hsl(var(--primary));
+          font-weight: 700;
+        }
+
+        .blog-row {
+          transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1);
+          border-left: 3px solid transparent;
+          padding-left: 8px;
+        }
+
+        .blog-row:hover {
+          background: hsl(var(--primary) / 0.05);
+          border-left-color: hsl(var(--primary));
+          transform: translateX(4px);
+        }
+
+        .blog-row:hover .blog-img { 
+          transform: scale(1.1) rotate(1deg);
+        }
+
+        .blog-row:hover .blog-title { 
+          color: hsl(var(--primary));
+        }
+
+        /* Staggered animations for dropdown items */
+        .mega-pkg-card {
+          animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .mega-pkg-card:nth-child(1) { animation-delay: 0.05s; }
+        .mega-pkg-card:nth-child(2) { animation-delay: 0.1s; }
+        .mega-pkg-card:nth-child(3) { animation-delay: 0.15s; }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Chevron icon animation */
+        .nav-trigger svg {
+          transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .nav-trigger:hover svg {
+          transform: scale(1.1);
+        }
+
+        /* Link arrow animation */
+        .places-explore, .places-card .places-explore {
+          transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .places-explore svg {
+          transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .places-card:hover .places-explore svg {
+          transform: translateX(3px);
+        }
+
+        /* Mobile menu item borders */
+        .mobile-menu-item {
+          position: relative;
+          transition: all 250ms ease;
+        }
+
+        .mobile-menu-item::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 3px;
+          background: linear-gradient(180deg, hsl(var(--primary)), hsl(var(--primary) / 0.5));
+          transform: scaleY(0);
+          transform-origin: top;
+          transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .mobile-menu-item:hover::before {
+          transform: scaleY(1);
+        }
       `}</style>
 
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/97 backdrop-blur-md border-b border-border shadow-sm" : "bg-background/80 backdrop-blur-[6px]"
-      }`}>
-        <div className="container mx-auto px-6 py-2 flex items-center justify-between">
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-gray-200 shadow-sm`}>
+        <div className="container mx-auto px-6 py-3 flex items-center justify-between">
 
           {/* Logo */}
           <Link href="/" className="z-10 block" prefetch={true}>
@@ -349,11 +679,11 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-0.5 flex-1 justify-center relative">
+          <div className="hidden md:flex items-center gap-3 flex-1 justify-center relative">
             {navItems.map((item) =>
               item.key ? (
                 <div key={item.label} className="relative" onMouseEnter={() => enter(item.key)} onMouseLeave={leave}>
-                  <Link href={item.href} className={`nav-trigger flex items-center gap-1 ${active === item.key ? "active text-primary" : "text-muted-foreground hover:text-foreground"}`}>
+                  <Link href={item.href} className={`nav-trigger flex items-center gap-1 ${active === item.key ? "active text-primary" : "text-gray-700 hover:text-primary"}`}>
                     {item.label}
                     <ChevronDown size={13} className={`transition-transform duration-200 ${active === item.key ? "rotate-180" : ""}`} />
                   </Link>
@@ -361,7 +691,7 @@ export default function Navbar() {
                   {item.key === "blog"     && <BlogMega     visible={active === "blog"}     />}
                 </div>
               ) : (
-                <Link key={item.label} href={item.href} className="nav-trigger text-muted-foreground hover:text-foreground">
+                <Link key={item.label} href={item.href} className="nav-trigger text-gray-700 hover:text-primary">
                   {item.label}
                 </Link>
               )
@@ -369,16 +699,16 @@ export default function Navbar() {
           </div>
 
           {/* Right */}
-          <div className="hidden md:flex items-center gap-3 z-10">
+          <div className="hidden md:flex items-center gap-4 z-10">
             <button
               onClick={() => setCustomiseOpen(true)}
-              className="text-xs bg-[hsl(var(--primary))] font-semibold text-white px-4 py-2 rounded-lg hover:brightness-110 hover:-translate-y-0.5 transition-all duration-200 shadow-md"
+              className="premium-btn text-sm bg-[hsl(var(--primary))] font-semibold text-white px-5 py-2.5 rounded-lg shadow-md"
               style={{ fontFamily: "var(--font-roboto)" }}
             >
               Customize Package
             </button>
-            <a href="tel:+919876543210" className="w-8 h-8 rounded-lg bg-[hsl(var(--primary))] flex items-center justify-center hover:brightness-110 transition-colors shadow-sm" aria-label="Call us">
-              <Phone size={14} className="text-white" />
+            <a href="tel:+919876543210" className="call-btn w-10 h-10 rounded-lg bg-[hsl(var(--primary))] flex items-center justify-center shadow-md" aria-label="Call us">
+              <Phone size={16} className="text-white" />
             </a>
           </div>
 
@@ -390,15 +720,15 @@ export default function Navbar() {
 
         {/* Mobile drawer */}
         {mobileOpen && (
-          <div className="md:hidden bg-background border-t border-border px-6 pb-6 space-y-1 max-h-[80vh] overflow-y-auto" style={{ fontFamily: "var(--font-roboto)" }}>
+          <div className="md:hidden bg-white border-t border-gray-200 px-6 pb-6 space-y-1 max-h-[80vh] overflow-y-auto" style={{ fontFamily: "var(--font-roboto)" }}>
             {navItems.map((item) =>
               item.key ? (
                 <div key={item.label}>
-                  <div className="w-full flex items-center justify-between py-3 border-b border-border/50">
-                    <Link href={item.href} onClick={() => setMobileOpen(false)} className="text-sm font-medium text-muted-foreground flex-1" style={{ fontFamily: "var(--font-roboto)" }}>
+                  <div className="w-full flex items-center justify-between py-3 border-b border-gray-200">
+                    <Link href={item.href} onClick={() => setMobileOpen(false)} className="text-sm font-medium text-gray-700 flex-1" style={{ fontFamily: "var(--font-roboto)" }}>
                       {item.label}
                     </Link>
-                    <button onClick={() => setMobileExp(mobileExp === item.key ? null : item.key)} className="p-2 -mr-2 text-muted-foreground">
+                    <button onClick={() => setMobileExp(mobileExp === item.key ? null : item.key)} className="p-2 -mr-2 text-gray-600">
                       <ChevronDown size={14} className={`transition-transform ${mobileExp === item.key ? "rotate-180 text-primary" : ""}`} />
                     </button>
                   </div>
@@ -450,17 +780,17 @@ export default function Navbar() {
                   )}
                 </div>
               ) : (
-                <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-muted-foreground py-3 border-b border-border/50">
+                <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} className="block text-sm font-medium text-gray-700 py-3 border-b border-gray-200">
                   {item.label}
                 </Link>
               )
             )}
             <div className="pt-4 space-y-3">
-              <button onClick={() => { setCustomiseOpen(true); setMobileOpen(false); }} className="btn-divine text-xs py-2 px-4 w-full" style={{ fontFamily: "var(--font-roboto)" }}>
+              <button onClick={() => { setCustomiseOpen(true); setMobileOpen(false); }} className="premium-btn btn-divine text-xs py-2.5 px-4 w-full font-semibold text-white bg-[hsl(var(--primary))] rounded-lg shadow-md" style={{ fontFamily: "var(--font-roboto)" }}>
                 Customize Package
               </button>
-              <a href="tel:+919876543210" className="flex items-center justify-center gap-2 text-sm text-primary font-medium py-2" style={{ fontFamily: "var(--font-roboto)" }}>
-                <Phone size={14} /> +91 98765 43210
+              <a href="tel:+919876543210" className="flex items-center justify-center gap-2 text-sm text-primary font-semibold py-2.5 border-2 border-primary rounded-lg transition-all duration-200 hover:bg-primary/5 active:bg-primary/10" style={{ fontFamily: "var(--font-roboto)" }}>
+                <Phone size={16} /> +91 98765 43210
               </a>
             </div>
           </div>

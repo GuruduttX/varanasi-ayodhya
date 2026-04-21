@@ -363,52 +363,10 @@ export default function InfoBannerStrip() {
                       </div>
                     ))}
                   </div>
-
-                  <span style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", fontWeight: 600, letterSpacing: "0.08em" }}>
-                    0{active + 1} &nbsp;/&nbsp; 0{total}
-                  </span>
                 </div>
               </div>
             );
           })}
-        </div>
-
-        {/* ── BOTTOM TAB STRIP ── */}
-        <div style={{ display: "flex", borderTop: "1px solid rgba(255,255,255,0.07)", marginTop: "auto" }}>
-          {banners.map((bn, i) => (
-            <button
-              key={bn.id}
-              className={`ib-tab ${i === active ? "active" : ""}`}
-              style={{ "--ib-accent": bn.accentColor } as React.CSSProperties}
-              onClick={() => pick(i)}
-            >
-              <div
-                className="ib-tab-eyebrow"
-                style={{ color: i === active ? bn.accentColor : "rgba(255,255,255,0.35)" }}
-              >
-                {bn.eyebrow}
-              </div>
-              <div className="ib-tab-title">
-                {bn.headline.split("\n").slice(0, 2).join(" · ")}
-              </div>
-
-              {/* progress bar */}
-              {i === active && (
-                <div style={{
-                  position: "absolute", bottom: 0, left: 0, right: 0, height: 2,
-                  background: bn.accentColor,
-                  animation: "ib-progress 7s linear forwards",
-                }}>
-                  <style>{`
-                    @keyframes ib-progress {
-                      from { transform: scaleX(0); transform-origin: left; }
-                      to   { transform: scaleX(1); transform-origin: left; }
-                    }
-                  `}</style>
-                </div>
-              )}
-            </button>
-          ))}
         </div>
       </div>
 

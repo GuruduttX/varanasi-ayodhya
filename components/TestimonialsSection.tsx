@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { ChevronRight, ChevronLeft, Award } from "lucide-react";
 
@@ -46,6 +46,8 @@ const reviews = [
 
 export default function TestimonialsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const scrollLeft = () => {
     if (scrollRef.current) {
@@ -57,6 +59,43 @@ export default function TestimonialsSection() {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: 420, behavior: 'smooth' });
     }
+  };
+
+  /* ── auto-scroll logic ── */
+  const startAutoScroll = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 10;
+        
+        if (isAtEnd) {
+          // Loop back to start
+          scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          // Scroll to next card
+          scrollRight();
+        }
+      }
+    }, 3000); // 3 seconds - auto scroll with loop back
+  }, []);
+
+  const resetAutoScroll = useCallback(() => {
+    startAutoScroll();
+  }, [startAutoScroll]);
+
+  useEffect(() => {
+    if (isAutoScrolling) {
+      startAutoScroll();
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isAutoScrolling, startAutoScroll]);
+
+  const handleUserInteraction = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    resetAutoScroll();
   };
 
   return (
@@ -98,10 +137,10 @@ export default function TestimonialsSection() {
           </div>
           
           <div className="mt-10 flex items-center justify-center lg:justify-start gap-4">
-            <button onClick={scrollLeft} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 hover:border-gray-300 transition-all text-gray-600 shadow-sm">
+            <button onClick={() => { scrollLeft(); handleUserInteraction(); }} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 hover:border-gray-300 transition-all text-gray-600 shadow-sm">
               <ChevronLeft size={20} />
             </button>
-            <button onClick={scrollRight} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 hover:border-gray-300 transition-all text-gray-600 shadow-sm">
+            <button onClick={() => { scrollRight(); handleUserInteraction(); }} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 hover:border-gray-300 transition-all text-gray-600 shadow-sm">
               <ChevronRight size={20} />
             </button>
           </div>

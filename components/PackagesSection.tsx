@@ -177,6 +177,7 @@ const PackagesSection = () => {
   const [dragging, setDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const dragStart   = useRef(0);
+  const timer       = useRef<ReturnType<typeof setInterval> | null>(null);
   const total       = packages.length;
 
   /* ── navigation ── */
@@ -194,7 +195,36 @@ const PackagesSection = () => {
   }, [total]);
 
   const prev = () => goTo(active - 1);
-  const next = () => goTo(active + 1);
+  const next = useCallback(() => {
+    goTo(active + 1);
+  }, [active, goTo]);
+
+  /* ── auto-rotation ── */
+  const startAutoRotate = useCallback(() => {
+    if (timer.current) clearInterval(timer.current);
+    timer.current = setInterval(() => {
+      setActive((prev) => {
+        const nextIdx = prev + 1;
+        if (nextIdx >= total) {
+          goTo(0); // Loop back to start
+          return 0;
+        }
+        goTo(nextIdx);
+        return nextIdx;
+      });
+    }, 4000);
+  }, [total, goTo]);
+
+  const resetAutoRotate = useCallback(() => {
+    if (timer.current) clearInterval(timer.current);
+    startAutoRotate();
+  }, [startAutoRotate]);
+
+  /* ── initialize auto-rotation ── */
+  useEffect(() => {
+    startAutoRotate();
+    return () => { if (timer.current) clearInterval(timer.current); };
+  }, [startAutoRotate]);
 
   /* ── sync scroll to active state ── */
   const handleScroll = () => {
@@ -211,12 +241,18 @@ const PackagesSection = () => {
   /* ── keyboard ── */
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") next();
-      if (e.key === "ArrowLeft")  prev();
+      if (e.key === "ArrowRight") {
+        next();
+        resetAutoRotate();
+      }
+      if (e.key === "ArrowLeft") {
+        prev();
+        resetAutoRotate();
+      }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [active, total]);
+  }, [active, total, next, resetAutoRotate]);
 
   /* ── drag / touch ── */
   const onPointerDown = (e: React.PointerEvent) => {
@@ -235,8 +271,14 @@ const PackagesSection = () => {
     if (!dragging) return;
     setDragging(false);
     const finalDelta = e.clientX - dragStart.current;
-    if (finalDelta < -100) next();
-    else if (finalDelta > 100) prev();
+    if (finalDelta < -100) {
+      next();
+      resetAutoRotate();
+    }
+    else if (finalDelta > 100) {
+      prev();
+      resetAutoRotate();
+    }
     setDragOffset(0);
     (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
   };
@@ -249,10 +291,12 @@ const PackagesSection = () => {
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || Math.abs(e.deltaY) > 20) {
       if (e.deltaX > 20 || e.deltaY > 20) {
         next();
+        resetAutoRotate();
         lastScrollTime.current = now;
       }
       else if (e.deltaX < -20 || e.deltaY < -20) {
         prev();
+        resetAutoRotate();
         lastScrollTime.current = now;
       }
     }
@@ -567,10 +611,10 @@ const PackagesSection = () => {
 
           {/* nav controls */}
           <div className="ps-header-controls" style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
-            <button className="ps-arrow" onClick={prev} disabled={active === 0} aria-label="Previous package">
+            <button className="ps-arrow" onClick={() => { prev(); resetAutoRotate(); }} disabled={active === 0} aria-label="Previous package">
               <ChevronLeft size={20} />
             </button>
-            <button className="ps-arrow" onClick={next} disabled={active === total - 1} aria-label="Next package">
+            <button className="ps-arrow" onClick={() => { next(); resetAutoRotate(); }} disabled={active === total - 1} aria-label="Next package">
               <ChevronRight size={20} />
             </button>
           </div>
@@ -644,7 +688,7 @@ const PackagesSection = () => {
               {packages.map((p, i) => (
                 <button
                   key={p.id}
-                  onClick={() => setActive(i)}
+                  onClick={() => { setActive(i); goTo(i); resetAutoRotate(); }}
                   className={`ps-list-item ${i === active ? "active" : ""}`}
                 >
                   {/* thumbnail */}
@@ -713,7 +757,7 @@ const PackagesSection = () => {
               <button
                 key={i}
                 className={`ps-dot ${i === active ? "active" : ""}`}
-                onClick={() => goTo(i)}
+                onClick={() => { goTo(i); resetAutoRotate(); }}
                 aria-label={`Go to package ${i + 1}`}
               />
             ))}
