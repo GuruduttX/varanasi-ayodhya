@@ -1,132 +1,87 @@
 "use client";
 
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/assets/Experience_my_India.webp";
 
 const Footer = () => {
   return (
-    <footer className="relative py-8 md:py-12 px-6 overflow-hidden" style={{ background: "#0a0805" }}>
-      {/* ── premium animated gradient orbs - Orange theme ── */}
-      <div style={{
-        position: "absolute",
-        top: "-30%",
-        right: "-5%",
-        width: "600px",
-        height: "600px",
-        background: "radial-gradient(circle, rgba(232,123,44,0.25) 0%, transparent 70%)",
-        borderRadius: "50%",
-        filter: "blur(40px)",
-        animation: "float 8s ease-in-out infinite",
-      }} />
-      <div style={{
-        position: "absolute",
-        bottom: "-20%",
-        left: "-10%",
-        width: "500px",
-        height: "500px",
-        background: "radial-gradient(circle, rgba(232,123,44,0.2) 0%, transparent 70%)",
-        borderRadius: "50%",
-        filter: "blur(50px)",
-        animation: "float 10s ease-in-out infinite 1s",
-      }} />
-      <div style={{
-        position: "absolute",
-        top: "20%",
-        left: "50%",
-        width: "400px",
-        height: "400px",
-        background: "radial-gradient(circle, rgba(232,123,44,0.12) 0%, transparent 70%)",
-        borderRadius: "50%",
-        filter: "blur(60px)",
-        animation: "float 12s ease-in-out infinite 2s",
-        transform: "translateX(-50%)",
-      }} />
+    <footer className="relative py-10 md:py-14 px-6 overflow-hidden select-none" style={{ background: "#030303" }}>
       
-      {/* ── subtle grid pattern with orange tint ── */}
-      <div style={{
-        position: "absolute",
-        inset: 0,
-        pointerEvents: "none",
-        background: `
-          linear-gradient(rgba(232,123,44,0.06) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(232,123,44,0.06) 1px, transparent 1px)
-        `,
-        backgroundSize: "60px 60px",
-        opacity: 0.6,
-      }} />
+      {/* ── Sacred Energy Background ── */}
+      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[140%] opacity-20 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at 50% 50%, #E87B2C 0%, transparent 70%)",
+          filter: "blur(120px)",
+          animation: "flame-drift 15s ease-in-out infinite alternate",
+          zIndex: 1,
+        }} 
+      />
       
-      {/* ── enhanced background effects ── */}
-      <div style={{
-        position: "absolute",
-        top: "10%",
-        right: "5%",
-        width: "300px",
-        height: "300px",
-        background: "radial-gradient(circle, rgba(212,160,23,0.15) 0%, transparent 70%)",
-        borderRadius: "50%",
-        filter: "blur(45px)",
-        animation: "float 15s ease-in-out infinite 3s",
-      }} />
-      <div style={{
-        position: "absolute",
-        bottom: "15%",
-        right: "20%",
-        width: "350px",
-        height: "350px",
-        background: "radial-gradient(circle, rgba(232,123,44,0.08) 0%, transparent 70%)",
-        borderRadius: "50%",
-        filter: "blur(50px)",
-        animation: "float 18s ease-in-out infinite 4s",
-      }} />
-      
+      <div className="absolute bottom-[-30%] right-[-10%] w-[50%] h-[120%] opacity-10 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at 50% 50%, #D4A017 0%, transparent 70%)",
+          filter: "blur(100px)",
+          animation: "flame-drift 20s ease-in-out infinite alternate-reverse",
+          zIndex: 1,
+        }} 
+      />
+
+      {/* ── Golden Dust Particles ── */}
+      <div className="absolute inset-0 pointer-events-none z-1">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: "1.5px",
+              height: "1.5px",
+              background: i % 2 === 0 ? "#E87B2C" : "#D4A017",
+              top: Math.random() * 100 + "%",
+              left: Math.random() * 100 + "%",
+              opacity: 0,
+              animation: `float-particle ${Math.random() * 8 + 4}s linear infinite ${Math.random() * 5}s`,
+              boxShadow: `0 0 6px ${i % 2 === 0 ? "#E87B2C" : "#D4A017"}`,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="container mx-auto relative z-10">
-        <div className="grid md:grid-cols-4 gap-8 md:gap-12 mb-12 pb-12 border-b border-white/5">
-          <div className="space-y-4">
-            <Link href="/" className="block">
-              <Image 
-                src={logo} 
-                alt="Experience My India" 
-                height={36} 
-                width={160}
-                className="object-contain opacity-90 hover:opacity-100 transition-opacity" 
-              />
+        <div className="grid md:grid-cols-4 gap-10 md:gap-12 mb-10 pb-10 border-b border-white/5">
+          
+          <div className="space-y-6">
+            <Link href="/" className="inline-block group perspective-1000">
+              <div className="relative p-3.5 rounded-xl bg-gradient-to-br from-white to-[#f0ece4] shadow-2xl transition-all duration-500 group-hover:shadow-[0_15px_40px_rgba(232,123,44,0.15)] group-hover:-translate-y-0.5">
+                <Image 
+                  src={logo} 
+                  alt="Experience My India" 
+                  height={38} 
+                  width={160}
+                  className="object-contain" 
+                  priority
+                />
+              </div>
             </Link>
-            <p className="text-white/75 text-sm leading-relaxed font-light">
+            <p className="text-white/50 text-[13px] leading-relaxed font-light font-body max-w-xs">
               Crafting sacred journeys to India's holiest destinations with devotion, care, and authenticity.
             </p>
           </div>
 
-          <div className="space-y-4">
-            <h4 className="text-xs font-bold text-white tracking-widest uppercase mb-5">Quick Links</h4>
-            <div className="space-y-3">
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-bold text-white/80 tracking-[0.25em] uppercase font-body">Quick Links</h4>
+            <div className="space-y-3.5">
               {[
                 { label: "Home", href: "/" },
                 { label: "Packages", href: "/#packages" },
                 { label: "Blog", href: "/#blog" },
                 { label: "Privacy Policy", href: "/privacy-policy" },
-                { label: "Refund Policy", href: "/refund-policy" },
               ].map((item, i) => (
                 <Link
                   key={i}
                   href={item.href}
-                  style={{
-                    display: "block",
-                    color: "rgba(255,255,255,0.85)",
-                    fontSize: "13px",
-                    fontWeight: 500,
-                    transition: "all 0.2s ease",
-                    position: "relative",
-                  }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.95)";
-                    (e.currentTarget as HTMLAnchorElement).style.paddingLeft = "6px";
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.85)";
-                    (e.currentTarget as HTMLAnchorElement).style.paddingLeft = "0";
-                  }}
+                  className="block text-[13px] font-medium text-white/40 hover:text-white transition-all duration-300 font-body"
                 >
                   {item.label}
                 </Link>
@@ -134,40 +89,45 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="space-y-4">
-            <h4 className="text-xs font-bold text-white tracking-widest uppercase mb-5">Destinations</h4>
-            <div className="space-y-3">
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-bold text-white/80 tracking-[0.25em] uppercase font-body">Destinations</h4>
+            <div className="space-y-3.5">
               {["Ayodhya", "Varanasi", "Prayagraj"].map((dest) => (
-                <span key={dest} className="block text-white/75 text-sm font-light hover:text-white/95 transition-colors cursor-default">{dest}</span>
+                <span key={dest} className="block text-[13px] font-light text-white/40 hover:text-[#D4A017] transition-colors font-body cursor-default">
+                  {dest}
+                </span>
               ))}
             </div>
           </div>
 
-          <div className="space-y-4">
-            <h4 className="text-xs font-bold text-white tracking-widest uppercase mb-5">Contact</h4>
-            <div className="space-y-3">
-              <a href="tel:+919876543210" className="text-white/75 text-sm flex items-center gap-2 hover:text-white/95 transition-colors group">
-                <Phone size={14} className="text-[#E87B2C] group-hover:scale-110 transition-transform" /> 
-                <span className="font-light">+91 98765 43210</span>
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-bold text-white/80 tracking-[0.25em] uppercase font-body">Contact</h4>
+            <div className="space-y-4">
+              <a href="tel:+919876543210" className="flex items-center gap-3 group">
+                <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:bg-[#E87B2C]/10 group-hover:border-[#E87B2C]/30">
+                  <Phone size={14} className="text-[#E87B2C]" /> 
+                </div>
+                <span className="text-[13px] text-white/60 group-hover:text-white font-medium font-body transition-colors">+91 98765 43210</span>
               </a>
-              <a href="mailto:ayodhavaranasitourism@gmail.com" className="text-white/75 text-sm flex items-center gap-2 hover:text-white/95 transition-colors group">
-                <Mail size={14} className="text-[#E87B2C] group-hover:scale-110 transition-transform" /> 
-                <span className="font-light">ayodhavaranasitourism@gmail.com</span>
+              <a href="mailto:ayodhavaranasitourism@gmail.com" className="flex items-center gap-3 group">
+                <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:bg-[#E87B2C]/10 group-hover:border-[#E87B2C]/30">
+                  <Mail size={14} className="text-[#E87B2C]" /> 
+                </div>
+                <span className="text-[13px] text-white/60 group-hover:text-white font-medium font-body transition-colors truncate">ayodhavaranasitourism@gmail.com</span>
               </a>
-              <p className="text-white/75 text-sm flex items-center gap-2">
-                <MapPin size={14} className="text-[#E87B2C] flex-shrink-0" /> 
-                <span className="font-light">Uttar Pradesh</span>
-              </p>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-          <p className="text-white/50 text-xs font-light tracking-wide">© 2026 Experience My India. All rights reserved.</p>
-          <div className="flex gap-6">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-2 font-body">
+          <p className="text-white/20 text-[10px] tracking-[0.2em] uppercase">
+            © 2026 EXPERIENCE MY INDIA. ALL RIGHTS RESERVED.
+          </p>
+          <div className="flex gap-8">
             {["Terms", "Privacy", "Cookies"].map((item, i) => (
-              <a key={i} href="#" className="text-white/50 text-xs hover:text-white/75 transition-colors font-light">
+              <a key={i} href="#" className="relative text-white/20 text-[10px] hover:text-white transition-all duration-300 tracking-[0.15em] uppercase group">
                 {item}
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white/20 group-hover:w-full transition-all duration-500" />
               </a>
             ))}
           </div>
@@ -175,13 +135,18 @@ const Footer = () => {
       </div>
 
       <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(30px); }
+        @keyframes flame-drift {
+          0% { transform: scale(1) translate(0, 0); }
+          100% { transform: scale(1.05) translate(10px, 15px); }
         }
-        @keyframes glow {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 1; }
+        @keyframes float-particle {
+          0% { transform: translateY(0) scale(0); opacity: 0; }
+          20% { opacity: 0.7; }
+          80% { opacity: 0.7; }
+          100% { transform: translateY(-60px) scale(0); opacity: 0; }
+        }
+        .perspective-1000 {
+          perspective: 1000px;
         }
       `}</style>
     </footer>
@@ -189,3 +154,8 @@ const Footer = () => {
 };
 
 export default Footer;
+
+
+
+
+

@@ -37,6 +37,7 @@ export default function Home() {
       <AboutSection />
       <BlogSection />
       <CustomisedPackageSection />
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
     </div>
   );
 }
