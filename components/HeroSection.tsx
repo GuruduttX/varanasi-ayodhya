@@ -146,25 +146,20 @@ export default function HeroSection() {
                 
                 <div className="relative z-10">
                   <h3 className="font-heading text-xl md:text-2xl text-white font-bold mb-2 tracking-tight">Plan Your Journey</h3>
-                  <p className="text-white/50 text-xs mb-10 font-body leading-relaxed">Let our experts craft your sacred pilgrimage.</p>
+                  <p className="text-white text-xs mb-10 font-body leading-relaxed">Let our experts craft your sacred pilgrimage.</p>
                   
                   <form className="space-y-7" onSubmit={(e) => e.preventDefault()}>
                     <div className="space-y-2.5">
-                      <label className="text-[9px] text-white/40 uppercase tracking-[0.2em] ml-1 font-bold">Full Name</label>
+                      <label className="text-[9px] text-white uppercase tracking-[0.2em] ml-1 font-bold">Full Name</label>
                       <Input placeholder="Your Name" className="hero-input font-body bg-white/5" />
                     </div>
                     <div className="space-y-2.5">
-                      <label className="text-[9px] text-white/40 uppercase tracking-[0.2em] ml-1 font-bold">Phone Number</label>
+                      <label className="text-[9px] text-white uppercase tracking-[0.2em] ml-1 font-bold">Phone Number</label>
                       <Input placeholder="+91 00000 00000" className="hero-input font-body bg-white/5" />
                     </div>
                     <div className="space-y-2.5">
-                      <label className="text-[9px] text-white/40 uppercase tracking-[0.2em] ml-1 font-bold">Preferred Destination</label>
-                      <select className="hero-select flex h-[48px] w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-[14px] text-white outline-none focus:ring-1 focus:ring-[#E87B2C] font-body appearance-none cursor-pointer">
-                        <option value="Varanasi" className="bg-[#111]">Varanasi Journey</option>
-                        <option value="Ayodhya" className="bg-[#111]">Ayodhya Pilgrimage</option>
-                        <option value="Prayagraj" className="bg-[#111]">Prayagraj Sangam</option>
-                        <option value="Combo" className="bg-[#111]">Complete Spiritual Circuit</option>
-                      </select>
+                      <label className="text-[9px] text-white uppercase tracking-[0.2em] ml-1 font-bold">Preferred Destination</label>
+                      <Input placeholder="e.g., Varanasi, Ayodhya" className="hero-input font-body bg-white/5" />
                     </div>
 
                     <Button className="w-full h-14 bg-[#E87B2C] hover:bg-[#d16a1b] text-white font-bold text-sm rounded-2xl transition-all duration-300 shadow-[0_12px_30px_rgba(232,123,44,0.3)] flex items-center justify-center gap-2 group mt-6 border-none">
