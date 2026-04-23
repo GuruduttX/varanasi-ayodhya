@@ -5,6 +5,7 @@ import { ModalProvider } from "@/lib/ModalContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,10 +45,9 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${roboto.variable} ${playfair.variable} antialiased font-sans bg-background text-foreground`}>
         <ModalProvider>
-          <Navbar />
-          {children}
-          <Footer />
-          <FloatingActions />
+          <LayoutWrapper>
+            {children}
+          </LayoutWrapper>
         </ModalProvider>
       </body>
     </html>

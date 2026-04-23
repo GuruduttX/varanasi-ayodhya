@@ -16,11 +16,15 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
 export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [initialPopupShown, setInitialPopupShown] = useState(false);
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
 
   const openEnquiry = () => setIsOpen(true);
   const closeEnquiry = () => setIsOpen(false);
 
   useEffect(() => {
+    const isCMS = pathname?.startsWith('/cms');
+    if (isCMS) return;
+
     const timer = setTimeout(() => {
       if (!initialPopupShown) {
         setIsOpen(true);
@@ -28,7 +32,8 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
       }
     }, 3000);
     return () => clearTimeout(timer);
-  }, [initialPopupShown]);
+  }, [initialPopupShown, pathname]);
+
 
   return (
     <ModalContext.Provider value={{ openEnquiry, closeEnquiry, isOpen }}>
